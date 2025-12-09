@@ -115,6 +115,10 @@ app.post('/api/products', (req, res) => {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
+    if (price < 0 || quantity < 0) {
+        return res.status(400).json({ error: 'Price and quantity must be non-negative' });
+    }
+    
     db.run(
         'INSERT INTO products (name, category, quantity, price, description) VALUES (?, ?, ?, ?, ?)',
         [name, category, quantity, price, description || ''],
@@ -134,6 +138,10 @@ app.put('/api/products/:id', (req, res) => {
     
     if (quantity === undefined) {
         return res.status(400).json({ error: 'Quantity is required' });
+    }
+    
+    if (quantity < 0) {
+        return res.status(400).json({ error: 'Quantity must be non-negative' });
     }
     
     db.run(

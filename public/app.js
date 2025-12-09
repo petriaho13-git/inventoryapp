@@ -95,7 +95,7 @@ function filterProducts() {
     if (searchTerm) {
         filtered = filtered.filter(p => 
             p.name.toLowerCase().includes(searchTerm) ||
-            p.description.toLowerCase().includes(searchTerm) ||
+            (p.description && p.description.toLowerCase().includes(searchTerm)) ||
             p.category.toLowerCase().includes(searchTerm)
         );
     }
